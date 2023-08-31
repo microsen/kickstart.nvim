@@ -105,7 +105,7 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',
 
       -- Adds a number of user-friendly snippets
-      'rafamadriz/friendly-snippets',
+      -- 'rafamadriz/friendly-snippets',
     },
   },
 
@@ -213,6 +213,13 @@ require('lazy').setup({
   require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
 
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
   --    up-to-date with whatever is in the kickstart repo.
@@ -228,6 +235,7 @@ require('lazy').setup({
 
 -- Set highlight on search
 vim.o.hlsearch = false
+vim.o.incsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -258,7 +266,7 @@ vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menuone,noselect,noinsert'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
@@ -319,6 +327,10 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+
+require('oil').setup()
+vim.keymap.set("n", "<leader>o", "<CMD>Oil<CR>", { desc = "[O]pen parent directory" })
+
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -417,7 +429,7 @@ local on_attach = function(_, bufnr)
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<leader>wss', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]ork[S]pace [S]ymbols')
+  nmap('<leader>ps', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[P]roject [S]ymbols')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -425,11 +437,11 @@ local on_attach = function(_, bufnr)
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  nmap('<leader>wsa', vim.lsp.buf.add_workspace_folder, '[W]ork[S]pace [A]dd Folder')
-  nmap('<leader>wsr', vim.lsp.buf.remove_workspace_folder, '[W]ork[S]pace [R]emove Folder')
-  nmap('<leader>wsl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, '[W]ork[S]space [L]ist Folders')
+  -- nmap('<leader>wsa', vim.lsp.buf.add_workspace_folder, '[W]ork[S]pace [A]dd Folder')
+  -- nmap('<leader>wsr', vim.lsp.buf.remove_workspace_folder, '[W]ork[S]pace [R]emove Folder')
+  -- nmap('<leader>wsl', function()
+  --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  -- end, '[W]ork[S]space [L]ist Folders')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -486,6 +498,8 @@ mason_lspconfig.setup_handlers {
   end
 }
 
+-- require 'lspconfig'.ocamllsp.setup {}
+
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
 local cmp = require 'cmp'
@@ -535,8 +549,12 @@ cmp.setup {
 }
 
 -- MICROSEN custom keymaps
-vim.keymap.set('n', '<leader>c', ':q<CR>', { noremap = true, silent = true, desc = 'Quit current buffer' })
-vim.keymap.set('n', '<leader>w', ':w<CR>', { noremap = true, silent = true, desc = 'Write the current buffer' })
+vim.keymap.set('n', '<leader>q', ':q<CR>', { noremap = true, silent = true, desc = '[Q]uit current buffer' })
+vim.keymap.set('n', '<leader>w', ':w<CR>', { noremap = true, silent = true, desc = '[W]rite the current buffer' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
+-- vim: ts=2 sts=2 sw=2 et
+-- vim: ts=2 sts=2 sw=2 et
+-- vim: ts=2 sts=2 sw=2 et
+-- vim: ts=2 sts=2 sw=2 et
 -- vim: ts=2 sts=2 sw=2 et
