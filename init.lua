@@ -225,7 +225,7 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -563,6 +563,18 @@ cmp.setup {
 -- MICROSEN custom keymaps
 vim.keymap.set('n', '<leader>q', ':q<CR>', { noremap = true, silent = true, desc = '[Q]uit current buffer' })
 vim.keymap.set('n', '<leader>w', ':w<CR>', { noremap = true, silent = true, desc = '[W]rite the current buffer' })
+vim.keymap.set('n', '<leader>ha', require('harpoon.mark').add_file,
+  { desc = '[H]arpoon [A]dd file' })
+vim.keymap.set('n', '<leader>hl', require('harpoon.ui').toggle_quick_menu,
+  { desc = '[H]arpoon [L]ist' })
+vim.keymap.set('n', '<leader>1', function() require('harpoon.ui').nav_file(1) end,
+  { desc = 'Nav to Harpoon 1' })
+vim.keymap.set('n', '<leader>2', function() require('harpoon.ui').nav_file(2) end,
+  { desc = 'Nav to Harpoon 2' })
+vim.keymap.set('n', '<leader>3', function() require('harpoon.ui').nav_file(3) end,
+  { desc = 'Nav to Harpoon 3' })
+vim.keymap.set('n', '<leader>4', function() require('harpoon.ui').nav_file(4) end,
+  { desc = 'Nav to Harpoon 4' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
