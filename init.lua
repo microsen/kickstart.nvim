@@ -104,9 +104,20 @@ require('lazy').setup({
 
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lsp-document-symbol',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+
+      -- Other completion sources
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-buffer',
+
+      -- more goodies here: https://github.com/hrsh7th/nvim-cmp/wiki/List-of-sources
 
       -- Adds a number of user-friendly snippets
       -- 'rafamadriz/friendly-snippets',
+
+      -- more formatting options
+      'onsails/lspkind.nvim',
     },
   },
 
@@ -296,8 +307,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- [[ Configure Theme ]]
 -- see https://github.com/rose-pine/neovim
 require('rose-pine').setup({
-  variant = 'dasdfasdfawn',
-  dim_nc_background = true
+  disable_float_background = true
 })
 
 vim.cmd.colorscheme 'rose-pine'
@@ -516,6 +526,7 @@ mason_lspconfig.setup_handlers {
 -- See `:help cmp`
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
+local lspkind = require 'lspkind'
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
@@ -554,9 +565,24 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   },
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = "symbol_text",
+      menu = ({
+        buffer = "[Buffer]",
+        nvim_lsp = "[LSP]",
+        luasnip = "[LuaSnip]",
+        path = "[Path]",
+      })
+    }),
+  },
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'nvim_lsp_document_symbol' },
+    { name = 'nvim_lsp_signature_help' },
     { name = 'luasnip' },
+    { name = 'buffer' },
+    { name = 'path' },
   },
 }
 
