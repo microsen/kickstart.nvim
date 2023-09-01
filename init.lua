@@ -62,6 +62,7 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 --  You can configure plugins using the `config` key.
 --
+
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
@@ -144,10 +145,8 @@ require('lazy').setup({
   {
     'rose-pine/neovim',
     name = 'rose-pine',
-    config = function()
-      vim.cmd.colorscheme 'rose-pine'
-    end
   },
+
 
   {
     -- Set lualine as statusline
@@ -234,8 +233,8 @@ require('lazy').setup({
 -- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
-vim.o.hlsearch = false
-vim.o.incsearch = true
+vim.o.hlsearch = true
+vim.o.incsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
@@ -294,6 +293,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+-- [[ Configure Theme ]]
+-- see https://github.com/rose-pine/neovim
+require('rose-pine').setup({
+  variant = 'dasdfasdfawn',
+  dim_nc_background = true
+})
+
+vim.cmd.colorscheme 'rose-pine'
+
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
@@ -338,6 +346,9 @@ require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'ocaml', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc',
     'vim' },
+  sync_install = true,
+  ignore_install = {},
+  modules = {},
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -347,10 +358,10 @@ require('nvim-treesitter.configs').setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
-      scope_incremental = '<c-s>',
-      node_decremental = '<M-space>',
+      init_selection = '<A-=>',
+      node_incremental = '<A-=>',
+      scope_incremental = '<A-+>',
+      node_decremental = '<A-->',
     },
   },
   textobjects = {
