@@ -155,7 +155,7 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
+        icons_enabled = true,
         theme = 'rose-pine',
         component_separators = '|',
         section_separators = '',
@@ -336,7 +336,8 @@ vim.keymap.set("n", "<leader>o", "<CMD>Oil<CR>", { desc = "[O]pen parent directo
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'ocaml', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc',
+    'vim' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
