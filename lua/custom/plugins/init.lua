@@ -8,5 +8,11 @@ return {
 		dependencies = {
 			'nvim-lua/plenary.nvim',
 		},
+	},
+	{
+		"iamcco/markdown-preview.nvim",
+		build = "mkdp#util#install()",
+		-- if installation fails try `:call mkdp#util#install()`
+		ft = "markdown",
 	}
 }
