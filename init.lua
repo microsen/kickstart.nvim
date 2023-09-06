@@ -153,11 +153,14 @@ require('lazy').setup({
   --   end,
   -- },
 
-  {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-  },
+  -- {
+  --   'rose-pine/neovim',
+  --   name = 'rose-pine',
+  -- },
 
+  {
+    "EdenEast/nightfox.nvim"
+  },
 
   {
     -- Set lualine as statusline
@@ -166,7 +169,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'rose-pine',
+        theme = 'nightfox',
         component_separators = '|',
         section_separators = '',
       },
@@ -306,11 +309,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- [[ Configure Theme ]]
 -- see https://github.com/rose-pine/neovim
-require('rose-pine').setup({
-  disable_float_background = true
-})
+-- require('rose-pine').setup({
+--   disable_float_background = true
+-- })
 
-vim.cmd.colorscheme 'rose-pine'
+vim.cmd.colorscheme 'nightfox'
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -459,11 +462,11 @@ local on_attach = function(_, bufnr)
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  -- nmap('<leader>wsa', vim.lsp.buf.add_workspace_folder, '[W]ork[S]pace [A]dd Folder')
-  -- nmap('<leader>wsr', vim.lsp.buf.remove_workspace_folder, '[W]ork[S]pace [R]emove Folder')
-  -- nmap('<leader>wsl', function()
-  --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  -- end, '[W]ork[S]space [L]ist Folders')
+  nmap('<leader>paf', vim.lsp.buf.add_workspace_folder, '[P]roject [A]dd [F]older')
+  nmap('<leader>prf', vim.lsp.buf.remove_workspace_folder, '[P]roject [R]emove [F]older')
+  nmap('<leader>plf', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, '[P]roject [L]ist [F]olders')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
