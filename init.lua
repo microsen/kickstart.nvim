@@ -570,7 +570,7 @@ cmp.setup {
   },
   formatting = {
     format = lspkind.cmp_format({
-      mode = "symbol_text",
+      mode = "text",
       menu = ({
         buffer = "[Buffer]",
         nvim_lsp = "[LSP]",
@@ -587,6 +587,14 @@ cmp.setup {
     { name = 'buffer' },
     { name = 'path' },
   },
+  window = {
+    completion = {
+      border = "rounded",
+      winhighlight = "Normal:CmpNormal",
+      scrollbar = false,
+      max_width = 100,
+    }
+  }
 }
 
 -- MICROSEN custom keymaps
