@@ -14,5 +14,26 @@ return {
 		build = "mkdp#util#install()",
 		-- if installation fails try `:call mkdp#util#install()`
 		ft = "markdown",
-	}
+	},
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			})
+		end,
+		dependencies = {
+			"zbirenbaum/copilot.lua"
+		}
+	},
+	{
+		"zbirenbaum/copilot-cmp",
+		config = function()
+			require("copilot_cmp").setup()
+		end,
+
+	},
 }
