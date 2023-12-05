@@ -480,6 +480,28 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+-- add custom lsps to lspconfig
+local lspconfig = require 'lspconfig'
+local lspconfigconfigs = require 'lspconfig.configs'
+
+
+lspconfigconfigs.contextmapper_ls = {
+  default_config = {
+    filetypes = { 'cml', 'scl' },
+    cmd = { '/Users/rosen/Downloads/contextmapper.context-mapper-vscode-extension-6.10.0/extension/lsp/bin/context-mapper-lsp', 'context-mapper-lsp' },
+    root_dir = lspconfig.util.root_pattern('.git'),
+  }
+}
+
+lspconfig.contextmapper_ls.setup {}
+vim.filetype.add({
+  extension = {
+    cml = 'cml',
+    scl = 'scl',
+  }
+})
+
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
