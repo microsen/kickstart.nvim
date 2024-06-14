@@ -358,6 +358,9 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 require('oil').setup()
 vim.keymap.set("n", "<leader>o", "<CMD>Oil<CR>", { desc = "[O]pen parent directory" })
 
+vim.keymap.set("n", "<leader>lr", ":set relativenumber<CR>", { desc = "Use [R]elative Linenumbers" })
+vim.keymap.set("n", "<leader>ln", ":set relativenumber!<CR>", { desc = "Use [N]ormal Linenumbers" })
+
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -513,7 +516,12 @@ vim.filetype.add({
 local servers = {
   -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
+  pyright = {
+    python = {
+      venvPath = ".",
+      venv = ".venv"
+    }
+  },
   -- rust_analyzer = {},
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
