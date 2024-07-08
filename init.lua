@@ -668,6 +668,8 @@ vim.keymap.set('n', '<leader>3', function() require('harpoon.ui').nav_file(3) en
 vim.keymap.set('n', '<leader>4', function() require('harpoon.ui').nav_file(4) end,
   { desc = 'Nav to Harpoon 4' })
 
+vim.keymap.set('n', '<S-Esc>', ':noh<CR>', { noremap = true, silent = true, desc = "Clear current search highlights" })
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 -- vim: ts=2 sts=2 sw=2 et
