@@ -708,13 +708,13 @@ vim.api.nvim_create_autocmd('FileType', {
     -- Markdown specific commands and keymaps
     if markdown_like_filetypes[vim.bo.filetype] then
       vim.api.nvim_create_user_command('ToggleCheckbox', ToggleCheckbox, {})
-      vim.keymap.set('n', '<leader>ct', ':set operatorfunc=v:lua.ToggleCheckbox<CR>g@<CR>',
-        { noremap = true, silent = true, desc = '[C]heckbox [T]oggle' })
+      vim.keymap.set('n', '<leader>cb', ':set operatorfunc=v:lua.ToggleCheckbox<CR>g@<CR>',
+        { noremap = true, silent = true, desc = 'toggle [C]heck[B]ox or add one' })
     else
       -- Remove buffer-local command
       pcall(vim.api.nvim_buf_del_user_command, 0, 'ToggleCheckbox')
       -- Remove buffer-local keymap
-      pcall(vim.api.nvim_buf_del_keymap, 0, 'n', '<leader>ct')
+      pcall(vim.api.nvim_buf_del_keymap, 0, 'n', '<leader>cb')
     end
   end
 })
