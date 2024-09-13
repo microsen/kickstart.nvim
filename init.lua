@@ -675,3 +675,46 @@ vim.keymap.set('n', '<S-Esc>', ':noh<CR>', { noremap = true, silent = true, desc
 -- vim: ts=2 sts=2 sw=2 et
 -- vim: ts=2 sts=2 sw=2 et
 -- vim: ts=2 sts=2 sw=2 et
+
+-- MY MARKDOWN ENHANCEMENTS
+
+
+
+local markdown_like_filetypes = {
+  markdown = true,
+  markdown_mmd = true,
+  pandoc = true,
+  rmd = true
+}
+vim.api.nvim_create_augroup('Markdown', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
+  group = 'Markdown',
+  pattern = '*',
+  callback = function()
+    function _G.ToggleCheckbox()
+      local line = vim.api.nvim_get_current_line()
+      local new_line = line:gsub('(%- %[%s%])', '- [x]', 1)
+      if new_line == line then
+        new_line = line:gsub('(%- %[x%])', '- [ ]', 1)
+      end
+      if new_line == line then
+        new_line = '- [ ] ' .. line
+      end
+      if new_line ~= line then
+        vim.api.nvim_set_current_line(new_line)
+      end
+    end
+
+    -- Markdown specific commands and keymaps
+    if markdown_like_filetypes[vim.bo.filetype] then
+      vim.api.nvim_create_user_command('ToggleCheckbox', ToggleCheckbox, {})
+      vim.keymap.set('n', '<leader>ct', ':set operatorfunc=v:lua.ToggleCheckbox<CR>g@<CR>',
+        { noremap = true, silent = true, desc = '[C]heckbox [T]oggle' })
+    else
+      -- Remove buffer-local command
+      pcall(vim.api.nvim_buf_del_user_command, 0, 'ToggleCheckbox')
+      -- Remove buffer-local keymap
+      pcall(vim.api.nvim_buf_del_keymap, 0, 'n', '<leader>ct')
+    end
+  end
+})
