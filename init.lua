@@ -310,6 +310,9 @@ vim.o.termguicolors = true
 
 vim.o.relativenumber = true
 
+-- gui font for neovide
+vim.o.guifont = "Hack Nerd Font Mono:h16"
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -529,6 +532,22 @@ vim.filetype.add({
   extension = {
     cml = 'cml',
     scl = 'scl',
+  }
+})
+
+lspconfigconfigs.structurizr_ls = {
+  default_config = {
+    filetypes = { 'structurizr' },
+    cmd = { '/Users/rosen/src/tools/c4-dsl-language-server/build/c4-language-server/bin/c4-language-server' },
+    root_dir = lspconfig.util.root_pattern('.git'),
+  }
+}
+
+
+lspconfig.structurizr_ls.setup {}
+vim.filetype.add({
+  extension = {
+    dsl = 'structurizr',
   }
 })
 
